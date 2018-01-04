@@ -1,0 +1,56 @@
+<?php
+
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateBookshelfTable extends Migration
+{
+    /**
+     * @var string
+     */
+    protected $bookshelfTable;
+
+    /**
+     * CreateCatalogTable constructor.
+     */
+    public function __construct()
+    {
+        $this->bookshelfTable = Config::get('bookshelf.bookshelves_table');
+    }
+
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        // Create table for storing bookshelves
+        Schema::create($this->bookshelfTable, function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('book_id');
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('sort');
+            $table->timestamp('add_time');
+
+            $table->unique(['book_id', 'user_id']);
+
+            $table->foreign('book_id')->references('id')->on(Config::get('book.books_table'))
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on(Config::get('bookshelf.users_table'))
+                ->onUpdate('cascade')->onDelete('cascade');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists($this->bookshelfTable);
+    }
+}

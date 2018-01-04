@@ -1,0 +1,33 @@
+{
+    "name": "viviniko/bookshelf",
+    "description": "VIVINIKO Bookshelf Service Provider",
+	"keywords": ["viviniko", "bookshelf", "laravel"],
+	"homepage": "http://viviniko.com",
+	"license": "MIT",
+	"authors": [
+        {
+            "name": "viviniko",
+            "email": "viviniko.shop@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "viviniko/book": "dev-master",
+        "viviniko/repository": "dev-master",
+        "viviniko/support": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "Viviniko\\Bookshelf": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Viviniko\\Bookshelf\\BookshelfServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
